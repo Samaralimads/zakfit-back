@@ -15,7 +15,7 @@ struct CreateActivity: AsyncMigration {
             .field("duration", .int, .required)
             .field("calories_burned", .int, .required)
             .field("user_id", .uuid, .required, .references("users", "id", onDelete: .cascade))
-            .field("activity_type_id", .uuid, .required, .references("activity_type", "id", onDelete: .cascade))
+            .field("activity_type_id", .uuid, .required, .references("activity_types", "id", onDelete: .cascade))
             .create()
     }
 

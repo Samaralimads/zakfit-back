@@ -12,7 +12,7 @@ struct CreateActivityGoal: AsyncMigration {
         try await db.schema(ActivityGoal.schema)
             .id()
             .field("user_id", .uuid, .required, .references("users", "id", onDelete: .cascade))
-            .field("activity_type_id", .uuid, .required, .references("activity_type", "id", onDelete: .cascade))
+            .field("activity_type_id", .uuid, .required, .references("activity_types", "id", onDelete: .cascade))
             .field("goal_type", .string, .required)
             .field("amount", .double, .required)
             .create()
