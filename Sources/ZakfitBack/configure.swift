@@ -17,10 +17,20 @@ public func configure(_ app: Application) async throws {
         database: Environment.get("DATABASE_NAME") ?? "vapor_database"
     ), as: .mysql)
 
-    app.migrations.add(CreateTodo())
+    //MARK: - MIGRATIONS
+    app.migrations.add(CreateUser())
+    app.migrations.add(CreateMealType())
+    app.migrations.add(CreateMealItem())
+    app.migrations.add(CreateMealGoal())
+    app.migrations.add(CreateMeal())
+    app.migrations.add(CreateCustomMealItem())
+    app.migrations.add(CreateActivityType())
+    app.migrations.add(CreateActivityGoal())
+    app.migrations.add(CreateActivity())
+    
+    try await app.autoMigrate()
 
     app.views.use(.leaf)
 
-    // register routes
     try routes(app)
 }
