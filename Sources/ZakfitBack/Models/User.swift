@@ -8,7 +8,7 @@
 import Fluent
 import Vapor
 
-final class User: Model, Content, @unchecked Sendable {
+final class User: Model, Content, @unchecked Sendable, Authenticatable {
     static let schema = "users"
 
     @ID(key: .id)
@@ -27,19 +27,19 @@ final class User: Model, Content, @unchecked Sendable {
     var password: String
 
     @Field(key: "age")
-    var age: Int
+    var age: Int?
 
     @Field(key: "height_cm")
-    var heightCm: Double
+    var heightCm: Double?
 
     @Field(key: "weight_kg")
-    var weightKg: Double
+    var weightKg: Double?
 
     @Field(key: "gender")
-    var gender: String
+    var gender: String?
 
     @Field(key: "dietary_preferences")
-    var dietaryPreferences: String
+    var dietaryPreferences: String?
     
     //MARK: - Relationships
     @Children(for: \.$user)
@@ -65,11 +65,11 @@ final class User: Model, Content, @unchecked Sendable {
         lastName: String,
         email: String,
         password: String,
-        age: Int,
-        heightCm: Double,
-        weightKg: Double,
-        gender: String,
-        dietaryPreferences: String
+        age: Int? = nil,
+        heightCm: Double? = nil,
+        weightKg: Double? = nil,
+        gender: String? = nil,
+        dietaryPreferences: String? = nil
     ) {
         self.id = id
         self.firstName = firstName

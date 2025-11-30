@@ -33,6 +33,10 @@ public func configure(_ app: Application) async throws {
     try await app.autoMigrate()
 
     app.views.use(.leaf)
+    
+    // MARK: - JWT Signer
+    app.jwt.signers.use(.hs256(key: Environment.get("JWT_SECRET")!))
+    // MARK: - Routes
 
     try routes(app)
 }
