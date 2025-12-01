@@ -3,10 +3,20 @@ import Fluent
 import FluentMySQLDriver
 import Leaf
 import Vapor
+import JWT
 
 // configures your application
 public func configure(_ app: Application) async throws {
-    // uncomment to serve files from /Public folder
+    // MARK: - CORS
+    let corsConfig = CORSMiddleware.Configuration(
+        allowedOrigin: .all,
+        allowedMethods: [.GET, .POST, .PUT, .DELETE, .PATCH, .OPTIONS],
+        allowedHeaders: [.accept, .authorization, .contentType, .origin, .xRequestedWith, .userAgent],
+        allowCredentials: true
+    )
+    
+    app.middleware.use(CORSMiddleware(configuration: corsConfig))
+
     // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
     
     app.databases.use(DatabaseConfigurationFactory.mysql(
@@ -31,6 +41,8 @@ public func configure(_ app: Application) async throws {
     
     //MARK: - Seeds
     app.migrations.add(MealTypeSeeds())
+    app.migrations.add(ActivityTypeSeeds())
+    app.migrations.add(MealItemSeeds())
     
     
     try await app.autoMigrate()
