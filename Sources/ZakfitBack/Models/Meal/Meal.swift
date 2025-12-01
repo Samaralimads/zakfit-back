@@ -20,14 +20,14 @@ final class Meal: Model, Content, @unchecked Sendable {
     @Parent(key: "user_id")
     var user: User
     
-    @Parent(key: "meal_type_id")
+    @Parent(key: "meal_types_id")
     var mealType: MealType
     
-    @OptionalParent(key: "meal_item_id")
-    var mealItems: MealItem?
+    @Field(key: "meal_items_id")
+    var mealItemIds: [UUID]
     
-    @OptionalParent(key: "custom_meal_item_id")
-    var customMealItems: CustomMealItem?
+    @Field(key: "custom_meal_items_id")
+    var customMealItemIds: [UUID]
     
     @Field(key: "total_kcal")
     var totalKcal: Int
@@ -42,25 +42,14 @@ final class Meal: Model, Content, @unchecked Sendable {
     var totalFat: Int
     
     init() {}
-    
-    init(
-        id: UUID? = nil,
-        date: Date,
-        userID: User.IDValue,
-        mealTypeID: MealType.IDValue,
-        mealItemsID: MealItem.IDValue? = nil,
-        customMealItemsID: CustomMealItem.IDValue? = nil,
-        totalKcal: Int,
-        totalProtein: Int,
-        totalCarbs: Int,
-        totalFat: Int
-    ) {
+
+    init(id: UUID? = nil, userID: UUID, mealTypeID: UUID, date: Date, mealItemIds: [UUID], customMealItemIds: [UUID], totalKcal: Int, totalProtein: Int, totalCarbs: Int, totalFat: Int) {
         self.id = id
-        self.date = date
         self.$user.id = userID
         self.$mealType.id = mealTypeID
-        self.$mealItems.id = mealItemsID
-        self.$customMealItems.id = customMealItemsID
+        self.mealItemIds = mealItemIds
+        self.customMealItemIds = customMealItemIds
+        self.date = date
         self.totalKcal = totalKcal
         self.totalProtein = totalProtein
         self.totalCarbs = totalCarbs

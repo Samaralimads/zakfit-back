@@ -20,7 +20,8 @@ struct CreateUser: AsyncMigration {
             .field("height_cm", .double)
             .field("weight_kg", .double)
             .field("gender", .string)
-            .field("dietary_preferences", .string)            .create()
+            .field("dietary_preferences", .string)
+            .create()
     }
     
     func revert(on db: any Database) async throws {

@@ -38,9 +38,6 @@ final class CustomMealItem: Model, Content, @unchecked Sendable {
     @Field(key: "fat_serving")
     var fatServing: Int
 
-    @Children(for: \.$customMealItems)
-    var meals: [Meal]
-
     init() {}
 
     init(

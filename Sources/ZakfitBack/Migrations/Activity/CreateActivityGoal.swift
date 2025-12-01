@@ -11,8 +11,8 @@ struct CreateActivityGoal: AsyncMigration {
     func prepare(on db: any Database) async throws {
         try await db.schema(ActivityGoal.schema)
             .id()
-            .field("user_id", .uuid, .required, .references("users", "id", onDelete: .cascade))
-            .field("activity_type_id", .uuid, .required, .references("activity_types", "id", onDelete: .cascade))
+            .field("user_id", .uuid, .required, .references(User.schema, .id, onDelete: .cascade))
+            .field("activity_type_id", .uuid, .required, .references(ActivityType.schema, .id, onDelete: .cascade))
             .field("goal_type", .string, .required)
             .field("amount", .double, .required)
             .create()

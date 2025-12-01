@@ -12,13 +12,12 @@ struct CreateMeal: AsyncMigration {
         try await db.schema(Meal.schema)
             .id()
             .field("date", .date, .required)
-            .field("user_id", .uuid, .required, .references("users", "id", onDelete: .cascade))
-            .field("meal_types_id", .uuid, .required, .references("meal_types", "id", onDelete: .cascade))
+            .field("user_id", .uuid, .required, .references(User.schema, .id, onDelete: .cascade))
+            .field("meal_types_id", .uuid, .required, .references(MealType.schema, .id, onDelete: .cascade))
         
-        // Optional parents
-            .field("meal_items_id", .uuid, .references("meal_items", "id", onDelete: .setNull))
-            .field("custom_meal_items_id", .uuid, .references("custom_meal_items", "id", onDelete: .setNull))
-        
+            .field("meal_items_id", .array(of: .uuid))
+            .field("custom_meal_items_id", .array(of: .uuid))
+
             .field("total_kcal", .int, .required)
             .field("total_protein", .int, .required)
             .field("total_carbs", .int, .required)

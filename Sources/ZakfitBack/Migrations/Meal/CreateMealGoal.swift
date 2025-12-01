@@ -11,7 +11,7 @@ struct CreateMealGoal: AsyncMigration {
     func prepare(on db: any Database) async throws {
         try await db.schema(MealGoal.schema)
             .id()
-            .field("user_id", .uuid, .required, .references("users", "id", onDelete: .cascade))
+            .field("user_id", .uuid, .required, .references(User.schema, .id, onDelete: .cascade))
             .field("kcal_goal", .int, .required)
             .field("protein_goal", .int, .required)
             .field("carbs_goal", .int, .required)
