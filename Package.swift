@@ -7,6 +7,8 @@ let package = Package(
        .macOS(.v13)
     ],
     dependencies: [
+        //JWT
+        .package(url: "http://github.com/vapor/jwt.git", from: "4.0.0"),
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.115.0"),
         // 🗄 An ORM for SQL and NoSQL databases.
@@ -28,6 +30,7 @@ let package = Package(
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "NIOCore", package: "swift-nio"),
                 .product(name: "NIOPosix", package: "swift-nio"),
+                .product(name: "JWT", package: "jwt")
             ],
             swiftSettings: swiftSettings
         ),
